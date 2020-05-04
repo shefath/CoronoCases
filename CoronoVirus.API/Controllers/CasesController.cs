@@ -32,7 +32,6 @@ namespace CoronoVirus.API.Controllers
         [HttpPost("addcase")]
         public IActionResult AddCase(CasesForAddDto casesForAddDto)
         {
-
             _repo.Add(casesForAddDto);
             _repo.SaveAll();
 

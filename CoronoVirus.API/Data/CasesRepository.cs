@@ -17,7 +17,6 @@ namespace CoronoVirus.API.Data
         {
             await this._context.AddAsync(entity);
         }
-
         public void Delete<T>(T entity) where T : class
         {
             this._context.Remove(entity);
@@ -39,5 +38,7 @@ namespace CoronoVirus.API.Data
         {
             return await _context.SaveChangesAsync() > 0;
         }
+
+
     }
 }

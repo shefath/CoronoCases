@@ -1,5 +1,5 @@
 {
-  "name": "testing-demo",
+  "name": "CoronoVirusAnalysis",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
