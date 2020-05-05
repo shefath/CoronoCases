@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using CoronoVirus.API.Data;
 using CoronoVirus.API.Dtos;
+using CoronoVirus.API.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CoronoVirus.API.Controllers
@@ -29,13 +30,26 @@ namespace CoronoVirus.API.Controllers
             return Ok(case1);
         }
 
-        [HttpPost("addcase")]
-        public IActionResult AddCase(CasesForAddDto casesForAddDto)
+        [Route("[action]/{status}")]
+        [HttpGet]
+        public async Task<IActionResult> GetStatistics(string status)
         {
-            _repo.Add(casesForAddDto);
-            _repo.SaveAll();
+            var Stat = await _repo.GetStatistics(status);
+            return Ok(Stat);
+        }
 
-            return StatusCode(201);
+        [HttpPost("addcase")]
+        public async Task<IActionResult> AddCase(Cases casesForAddDto)
+        {
+            if (await _repo.CaseExists(casesForAddDto.Name.ToLower(), casesForAddDto.Country.ToLower(), casesForAddDto.Country.ToLower()))
+            {
+                return BadRequest("Case is registered Already");
+            }
+
+            var caseCreated = await _repo.AddCase(casesForAddDto);
+
+
+            return Ok(caseCreated);
         }
     }
 }

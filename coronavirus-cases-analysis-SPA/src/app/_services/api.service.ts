@@ -47,14 +47,15 @@ export class ApiService {
   }
 
   addCases(cases: Cases): Observable<Cases> {
-    return this.http.post<Cases>(apiUrl, cases, httpOptions).pipe(
+    const url = apiUrl + "addcase";
+    return this.http.post<Cases>(url, cases, httpOptions).pipe(
       tap((c: Cases) => console.log(`added cases w/ id=${c.id}`)),
       catchError(this.handleError<Cases>("addCases"))
     );
   }
 
   updateCases(id: number, cases: Cases): Observable<any> {
-    const url = `${apiUrl}/${id}`;
+    const url = `${apiUrl}${id}`;
     return this.http.put(url, cases, httpOptions).pipe(
       tap((_) => console.log(`updated cases id=${id}`)),
       catchError(this.handleError<any>("updateCases"))
@@ -62,7 +63,7 @@ export class ApiService {
   }
 
   deleteCases(id: number): Observable<Cases> {
-    const url = `${apiUrl}/${id}`;
+    const url = `${apiUrl}${id}`;
     return this.http.delete<Cases>(url, httpOptions).pipe(
       tap((_) => console.log(`deleted cases id=${id}`)),
       catchError(this.handleError<Cases>("deleteCases"))
