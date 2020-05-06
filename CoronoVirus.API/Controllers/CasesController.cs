@@ -30,6 +30,21 @@ namespace CoronoVirus.API.Controllers
             return Ok(case1);
         }
 
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateCase(int id, Cases casesForUpdateDto)
+        {
+            var case1 = await _repo.UpdateCase(id, casesForUpdateDto);
+            return Ok(case1);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteCase(int id)
+        {
+            var deleted = await _repo.DeleteCase(id);
+            return Ok(deleted);
+        }
+
+
         [Route("[action]/{status}")]
         [HttpGet]
         public async Task<IActionResult> GetStatistics(string status)
@@ -41,7 +56,7 @@ namespace CoronoVirus.API.Controllers
         [HttpPost("addcase")]
         public async Task<IActionResult> AddCase(Cases casesForAddDto)
         {
-            if (await _repo.CaseExists(casesForAddDto.Name.ToLower(), casesForAddDto.Country.ToLower(), casesForAddDto.Country.ToLower()))
+            if (await _repo.CaseExists(casesForAddDto.Name.ToLower(), casesForAddDto.City.ToLower(), casesForAddDto.Country.ToLower()))
             {
                 return BadRequest("Case is registered Already");
             }

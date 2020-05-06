@@ -10,6 +10,8 @@ namespace CoronoVirus.API.Data
         void Delete<T>(T entity) where T : class;
         Task<bool> SaveAll();
         Task<Cases> AddCase(Cases entity);
+        Task<Cases> UpdateCase(int id, Cases entity);
+        Task<Cases> DeleteCase(int id);
         Task<bool> CaseExists(string name, string city, string country);
         Task<IEnumerable<Cases>> GetCases();
         Task<Cases> GetCase(int id);

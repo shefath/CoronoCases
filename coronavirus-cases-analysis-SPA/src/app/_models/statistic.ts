@@ -1,4 +1,5 @@
 export class Statistic {
-  id: number;
+  updated: Date;
   count: number;
+  status: string;
 }

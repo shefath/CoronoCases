@@ -26,6 +26,36 @@ namespace CoronoVirus.API.Data
             return caseAdded.Entity;
         }
 
+        public async Task<Cases> UpdateCase(int id, Cases entity)
+        {
+
+            var existingCase = this._context.Cases.Where(c => c.Id == id).FirstOrDefault<Cases>();
+
+            if (existingCase != null)
+            {
+                existingCase.Name = entity.Name;
+                existingCase.Gender = entity.Gender;
+                existingCase.Age = entity.Age;
+                existingCase.Address = entity.Address;
+                existingCase.City = entity.City;
+                existingCase.Country = entity.Country;
+                existingCase.Status = entity.Status;
+                existingCase.Updated = DateTime.Today;
+                await this._context.SaveChangesAsync();
+            }
+            return existingCase;
+        }
+
+
+        public async Task<Cases> DeleteCase(int id)
+        {
+            var caseDelete = await this._context.Cases.Where(x => x.Id == id).FirstOrDefaultAsync<Cases>();
+            var caseDeleted = this._context.Remove(caseDelete);
+            await this._context.SaveChangesAsync();
+            return caseDeleted.Entity;
+        }
+
+
         public async Task<bool> CaseExists(string name, string city, string country)
         {
             if (await _context.Cases.AnyAsync(x => x.Name.ToLower() == name && x.City.ToLower() == city && x.Country.ToLower() == country))
@@ -60,25 +90,9 @@ namespace CoronoVirus.API.Data
                 Updated = cs.Select(y => y.Updated).FirstOrDefault(),
                 Count = cs.Count(),
                 Status = status
-            });
+            }).OrderBy(x => x.Updated);
 
             return result;
-
-            // CaseStatistics caseStatitics = selectedCases.GroupBy(x=> x.Updated)
-            // .Select( cs => new CaseStatistics{
-
-
-            // }
-            // );
-
-            // var result = books.GroupBy(x => new { x.IssuerName, x.DateOfIssue })
-            //     .Select(b => new ViewModel
-            //     {
-            //         Books = b.Select(bn => bn.BookName).ToList(),
-            //         // Accessing to DateOfIssue and IssuerName from Key.
-            //         DateOfIssue = b.Key.DateOfIssue,
-            //         IssuerName = b.Key.IssuerName
-            //     });
 
         }
 
@@ -86,7 +100,5 @@ namespace CoronoVirus.API.Data
         {
             return await _context.SaveChangesAsync() > 0;
         }
-
-
     }
 }

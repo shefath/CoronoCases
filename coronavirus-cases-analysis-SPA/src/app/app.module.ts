@@ -17,6 +17,7 @@ import { MatTableModule } from "@angular/material/table";
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { RouterModule, Routes } from "@angular/router";
+import { ChartsModule } from "ng2-charts";
 import { AddCasesComponent } from "./add-cases/add-cases.component";
 import { AppComponent } from "./app.component";
 import { CasesDetailsComponent } from "./cases-details/cases-details.component";
@@ -67,6 +68,7 @@ const routes: Routes = [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
+    ChartsModule,
     MatInputModule,
     MatPaginatorModule,
     MatProgressSpinnerModule,

@@ -71,7 +71,7 @@ export class ApiService {
   }
 
   getStatistic(status: string): Observable<Statistic> {
-    const url = `${apiUrl}/daily/${status}`;
+    const url = `${apiUrl}${"GetStatistics/"}${status}`;
     return this.http.get<Statistic>(url).pipe(
       tap((_) => console.log(`fetched statistic status=${status}`)),
       catchError(this.handleError<Statistic>(`getStatistic status=${status}`))
