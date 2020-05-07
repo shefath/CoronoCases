@@ -35,7 +35,7 @@
       <a
         mat-flat-button
         color="primary"
-        [routerLink]="['/edit-cases', cases.id]"
+        [routerLink]="['/edit-cases', cases?.id]"
         ><mat-icon>edit</mat-icon> Cases</a
       >
       <a mat-flat-button color="warn" (click)="deleteCases(cases.id)"

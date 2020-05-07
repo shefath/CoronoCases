@@ -30,13 +30,26 @@ export class CasesDetailsComponent implements OnInit {
   getCasesDetails(id: number) {
     this.api.getCasesById(id).subscribe((data: any) => {
       this.cases = data;
-      console.log("Test", this.cases);
+      //console.log("Test", this.cases);
       this.isLoadingResults = false;
     });
   }
 
   ngOnInit(): void {
-    this.getCasesDetails(+this.route.snapshot.params.id);
+    //this.getCasesDetails(+this.route.snapshot.params.id);
+    this.route.data.subscribe(
+      (data) => {
+        const case1 = "case1";
+        console.log("when case detail initiated case detail", data);
+
+        this.cases = data[case1];
+
+        this.isLoadingResults = false;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
   deleteCases(id: number) {

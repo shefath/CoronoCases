@@ -1,3 +1,4 @@
+import { CaseDetailResolver } from "./_resolvers/casedetail-resolver";
 import { HttpClientModule } from "@angular/common/http";
 import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
@@ -35,7 +36,10 @@ const routes: Routes = [
   {
     path: "cases-details/:id",
     component: CasesDetailsComponent,
-    data: { title: "Cases Details" },
+    resolve: {
+      case1: CaseDetailResolver,
+    },
+    // data: { title: "Cases Details" },
   },
   {
     path: "cases-stat",
@@ -86,7 +90,7 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     BrowserAnimationsModule,
   ],
-  providers: [ApiService],
+  providers: [ApiService, CaseDetailResolver],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
